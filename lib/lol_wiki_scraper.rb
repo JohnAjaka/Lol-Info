@@ -15,8 +15,6 @@ class LolWikiScraper
         @url_name = []
         normalize
         valid_champ?
-        # scrape
-        # binding.pry
     end
 
     def normalize
@@ -26,7 +24,6 @@ class LolWikiScraper
             @url_name << part.capitalize
             end
             @url_name = @url_name.join("'")
-            # binding.pry
         else 
             split_name = @name.split(" ")
             split_name.each do |part|
@@ -34,7 +31,6 @@ class LolWikiScraper
             end
             @url_name = @url_name.join("_")
         end
-        # binding.pry
         @url_name
     end
 
@@ -47,7 +43,6 @@ class LolWikiScraper
             puts "Sorry, #{@name} is not a valid champion. Please enter a valid name."
             Champion::CLI.new.get_champ
         end
-        # binding.pry
     end
 
     def scrape

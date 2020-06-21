@@ -8,7 +8,6 @@ class Champion::CLI
     def call
         puts "Welcome to LoL Info! Please enter a champion name, or type exit to exit."
         get_champ
-        # binding.pry
     end
 
     def get_champ
@@ -20,11 +19,8 @@ class Champion::CLI
             loaded = Champ.new(data.scrape)
             puts "#{loaded.name} - #{loaded.title}, has been loaded."
             inputs(loaded)
-            # binding.pry
-            # puts "#{champion.name} - #{champion.title}, has been loaded."
         end
 
-        # binding.pry
     end
 
     def goodbye
