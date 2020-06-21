@@ -59,6 +59,8 @@ class Champion::CLI
                 puts champion.ability_e
             when "r" || "ult" || "ultimate"
                 puts champion.ability_r
+            else
+                puts "That is not a valid entry, try again or type help for a list of options."
             end
         end
 
