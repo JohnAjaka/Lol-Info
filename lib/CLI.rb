@@ -63,5 +63,6 @@ class Champion::CLI
                 puts "That is not a valid entry, try again or type help for a list of options."
             end
         end
+        goodbye
     end
 end
