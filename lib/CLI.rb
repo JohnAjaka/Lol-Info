@@ -30,7 +30,7 @@ class Champion::CLI
     def inputs(champion)
         input = nil
         while input != "exit"
-            puts "What would you like to know about ahri? #{champion.name}. For a list of commands, type help, or type exit to exit."
+            puts "What would you like to know about #{champion.name}? For a list of commands, type help, or type exit to exit."
             input = gets.chomp.downcase
             case input
             when "help"
@@ -63,6 +63,5 @@ class Champion::CLI
                 puts "That is not a valid entry, try again or type help for a list of options."
             end
         end
-
     end
 end
