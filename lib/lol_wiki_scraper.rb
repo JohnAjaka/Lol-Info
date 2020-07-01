@@ -1,35 +1,19 @@
-require 'open-uri'
-require 'nokogiri'
-require "net/http"
-require 'pry'
-require_relative './champion'
-require_relative './CLI'
-
 class LolWikiScraper
     attr_accessor :name, :url_name
 
-    
-
     def initialize(name)
         @name = name
-        @url_name = []
         normalize
-        valid_champ?
+        # binding.pry
     end
 
     def normalize
         if @name.include?("'")
             split_name = @name.split("'")
-            split_name.each do |part|
-            @url_name << part.capitalize
-            end
-            @url_name = @url_name.join("'")
+            @url_name = split_name.map {|part| part.capitalize}.join("'")
         else 
             split_name = @name.split(" ")
-            split_name.each do |part|
-                @url_name << part.capitalize
-            end
-            @url_name = @url_name.join("_")
+            @url_name = split_name.map {|part| part.capitalize}.join("_")
         end
         @url_name
     end
@@ -39,9 +23,10 @@ class LolWikiScraper
         req = Net::HTTP.new(url.host, url.port)
         req.use_ssl = true
         res = req.request_head(url.path)
-        if res.code != "200"
-            puts "Sorry, #{@name} is not a valid champion. Please enter a valid name."
-            Champion::CLI.new.get_champ
+        if res.code == "200"
+            true
+        else 
+            false
         end
     end
 

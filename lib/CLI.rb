@@ -1,8 +1,3 @@
-require 'pry'
-require_relative './champion'
-require_relative './lol_wiki_scraper'
-
-
 class Champion::CLI
     
     def call
@@ -15,10 +10,15 @@ class Champion::CLI
         if champ_name == "exit"
             goodbye
         else
-            data = LolWikiScraper.new(champ_name)
-            loaded = Champ.new(data.scrape)
-            puts "#{loaded.name} - #{loaded.title}, has been loaded."
-            inputs(loaded)
+            scraper = LolWikiScraper.new(champ_name)
+            if scraper.valid_champ?
+                loaded = Champ.new(scraper.scrape)
+                puts "#{loaded.name} - #{loaded.title}, has been loaded."
+                inputs(loaded)
+            else
+                puts "Sorry that was not a valid champ, please enter a valid champ name."
+                get_champ
+            end
         end
 
     end
@@ -29,7 +29,7 @@ class Champion::CLI
 
     def inputs(champion)
         input = nil
-        while input != "exit"
+        until input == "exit" || input == "new"
             puts "What would you like to know about #{champion.name}? For a list of commands, type help, or type exit to exit."
             input = gets.chomp.downcase
             case input
@@ -59,10 +59,19 @@ class Champion::CLI
                 puts champion.ability_e
             when "r" || "ult" || "ultimate"
                 puts champion.ability_r
+            when "new"
+                puts "Which champ would you like to load?"
+                get_champ
+            when "exit"
+                goodbye
             else
                 puts "That is not a valid entry, try again or type help for a list of options."
             end
         end
-        goodbye
+        # if input == "exit"
+        #     goodbye
+        # # elsif input == "new"
+        # #     get_champ
+        # end
     end
 end

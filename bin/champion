@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
+require './config/environment.rb'
 
-require './lib/champion'
 Champion::CLI.new.call
